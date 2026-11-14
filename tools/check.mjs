@@ -131,7 +131,7 @@ function parseCurriculum(text, sources) {
 }
 
 // 조문·조항 표기가 나온 줄에는 출처 번호가 있어야 한다(R11). 튜터 지침의 형식 설명 줄은 「제<번호>조」처럼 숫자가 없어 걸리지 않는다.
-const ARTICLE = /제\s?\d+\s?(조|항|호)|\d+조(의\d+)?|\bSection\s+\d+|\bs\.\s?\d+|\bs\d+\b|§\s?\d+|\bArt(icle|\.)\s?\d+|U\.S\.C\.|\bISO\s?\d+[^\n]*?\s\d+\.\d+\b|\d+\.\d+\s?항|(조항|clause)\s+\d+(\.\d+)*/i;
+const ARTICLE = /제\s?\d+\s?(조|항|호)|\d+조(?!\s?원)(의\d+)?|\bSec\.\s?\d+|\bRule\s+\d+[a-z]?-\d+|\bSection\s+\d+|\bs\.\s?\d+|\bs\d+\b|§\s?\d+|\bArt(icle|\.)\s?\d+|U\.S\.C\.|\bISO\s?\d+[^\n]*?\s\d+\.\d+\b|\d+\.\d+\s?항|(조항|clause)\s+\d+(\.\d+)*/i;
 function findUnsourcedArticles(name, text, sources) {
   const hits = [];
   text.split("\n").forEach((line, i) => {
