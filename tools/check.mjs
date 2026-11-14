@@ -40,6 +40,9 @@ const OFFICIAL = [
   "uscode.house.gov", // 미국 법전
   "uscourts.gov", // 미국 연방법원
   "govinfo.gov", // 미국 정부출판국
+  "ecfr.gov", // 미국 연방규정집
+  "delaware.gov", // 미국 델라웨어주
+  "e-gov.go.jp", // 일본 디지털청 법령검색
   "oecd.org", // OECD
   "iso.org", // 국제표준화기구
   "wipo.int", // 세계지식재산기구
