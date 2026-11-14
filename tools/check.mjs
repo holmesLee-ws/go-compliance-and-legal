@@ -92,7 +92,8 @@ function parseCurriculum(text, sources) {
     const fields = {};
     for (const line of block.split("\n").slice(1)) {
       const f = line.match(/^- ([^:]+): (.+)$/);
-      if (f) fields[f[1]] = f[2];
+      if (f && FIELDS.includes(f[1])) fields[f[1]] = f[2];
+      else if (line.trim() && !/^## /.test(line)) problems.push(`${id}: 필드 밖 내용(강의 본문 금지): ${line.slice(0, 40)}`);
     }
     for (const name of FIELDS) if (!fields[name]) problems.push(`${id}: 「${name}」 없음`);
     if (fields["목표"] && !LEVELS.some((l) => fields["목표"].startsWith(`${l} — `))) problems.push(`${id}: 목표 수준 형식 오류`);
@@ -130,11 +131,13 @@ function parseCurriculum(text, sources) {
 }
 
 // 조문·조항 표기가 나온 줄에는 출처 번호가 있어야 한다(R11). 튜터 지침의 형식 설명 줄은 「제<번호>조」처럼 숫자가 없어 걸리지 않는다.
-const ARTICLE = /제\s?\d+\s?조|\bSection\s+\d+|\bs\.\s?\d+\b|§\s?\d+|(조항|clause)\s+\d+(\.\d+)+/i;
-function findUnsourcedArticles(name, text) {
+const ARTICLE = /제\s?\d+\s?(조|항|호)|\d+조(의\d+)?|\bSection\s+\d+|\bs\.\s?\d+|\bs\d+\b|§\s?\d+|\bArt(icle|\.)\s?\d+|U\.S\.C\.|\bISO\s?\d+[^\n]*?\s\d+\.\d+\b|\d+\.\d+\s?항|(조항|clause)\s+\d+(\.\d+)*/i;
+function findUnsourcedArticles(name, text, sources) {
   const hits = [];
   text.split("\n").forEach((line, i) => {
-    if (ARTICLE.test(line) && !/\[[KG]\d{2}\]/.test(line)) hits.push(`${name}:${i + 1}`);
+    const bare = line.replace(/<?https?:\/\/[^\s>)]+>?/g, "");
+    if (ARTICLE.test(bare) && !/\[[KG]\d{2}\]/.test(line)) hits.push(`출처 번호 없는 조문 표기: ${name}:${i + 1}`);
+    for (const m of line.matchAll(/\[([KG]\d{2})\]/g)) if (!sources.has(m[1])) hits.push(`없는 출처 번호 ${m[1]}: ${name}:${i + 1}`);
   });
   return hits;
 }
@@ -164,7 +167,7 @@ function main() {
   for (const f of docs) {
     const t = read(f);
     for (const n of findTemplateMarkup(f, t)) errors.push(`복사용 마크업 금지: ${n}`);
-    for (const h of findUnsourcedArticles(f, t)) errors.push(`출처 번호 없는 조문 표기: ${h}`);
+    for (const h of findUnsourcedArticles(f, t, sources)) errors.push(h);
   }
 
   const claude = read("CLAUDE.md");

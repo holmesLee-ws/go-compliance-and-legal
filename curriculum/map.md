@@ -291,11 +291,11 @@
 |---|---|
 | 노동법·근로계약 | go-hr |
 | 산업안전·중대재해 의무 이행 실무 | go-hse |
-| 개인정보·정보보호 | go-security |
+| 개인정보·정보보호(개인정보 수집·이용 동의 포함) | go-security |
 | AI 규제·AI와 저작권 | go-ai |
 | 내부회계관리제도 | go-icfr |
 | 전사 위험관리·내부통제 총론 | go-control |
-| 표시광고·마케팅 동의 | go-marketing |
+| 표시광고·광고성 정보 수신 동의 | go-marketing |
 | 영업·공공조달 실무 | go-sales |
 | 상품 화면·접근성 | go-product |
 | 청약철회·환불·불만 처리 | go-cx |

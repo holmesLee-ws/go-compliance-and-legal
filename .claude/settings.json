@@ -19,5 +19,6 @@
       "Bash(start *..*)",
       "PowerShell(Start-Process *..*)"
     ]
-  }
+  },
+  "autoMemoryEnabled": false
 }
