@@ -31,4 +31,5 @@ GitHub 새 클론에서 대화형 CLI를 프로젝트 설정만으로 열고, �
 
 - 기본 모드(이 빌드는 `auto`): 권한 창 0회. `learner/state.json`·`log.md`·지도 HTML 생성.
 - `--permission-mode manual`: 권한 창 0회. 같은 파일 생성, `open learner/studio/...html` 실행.
+- 최종 커밋(G3 기록 마감)으로 `manual` 모드를 다시 돌려 권한 창 0회, 파일 생성, HTML 열기를 확인했다(2026-11-14 21:59).
 - Claude Desktop과 Windows는 실제로 실행해 확인하지 못했다.
